@@ -93,7 +93,7 @@ Ultimately I searched on three scales using YCrCb 3-channel HOG features plus sp
 ### Video Implementation
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
-I combined the vehicle detection with last lane detection. Here's a [video](output_videos/detect_project_video.mp4).
+I combined the vehicle detection with the lane detection I have done in last project. Here's a [video](output_videos/detect_project_video.mp4).
 The sub window at right-top corner is the heat map.
 
 #### 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
