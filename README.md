@@ -27,7 +27,7 @@ Here are links to the labeled data for [vehicle](https://s3.amazonaws.com/udacit
 [detected_test4]: output_images/detected_test4.jpg
 [bounding_boxes]: output_images/bounding_boxes.jpg
 [labels_map]: output_images/labels_map.jpg
-[video1]: output_videos/detect_project_video.mp4
+[video]: output_videos/detect_project_video.mp4
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
 
@@ -80,7 +80,7 @@ I tried different combinations of (ystart, ystop) and scale. Below is my final c
 
 #### 2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
-Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some example images (the sub window at right-top corner is the heat map):
+Ultimately I searched on three scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some example images (the sub window at right-top corner is the heat map):
 
 ![Detected Vehicles][detected_test1]
 
@@ -93,7 +93,7 @@ Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spat
 ### Video Implementation
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
-I combined the vehicle detection with last lane detection. Here's a [video1](output_videos/detect_project_video.mp4).
+I combined the vehicle detection with last lane detection. Here's a [video](output_videos/detect_project_video.mp4).
 The sub window at right-top corner is the heat map.
 
 #### 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
