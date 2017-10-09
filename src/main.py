@@ -22,8 +22,8 @@ def undistort_image(fullname):
 
 # imagedata_list: [(image, title, cmap), ...]
 def show_images(imagedata_list, save_as=None, fontsize=12):
-    ncols = 3
-    if len(imagedata_list) <= 3:
+    ncols = 4
+    if len(imagedata_list) <= ncols:
         ncols = len(imagedata_list)
         nrows = 1
     else:
@@ -156,8 +156,12 @@ def detect_vehicles(fullname):
     img = mpimg.imread(fullname)
     window_img, label_img = classifier.detect_vehicles(img)
     plt.imshow(window_img)
+    # plt.savefig('../output_images/sliding_windows.jpg', bbox_inches='tight', dpi=300)
+    plt.savefig('../output_images/bounding_boxes.jpg', bbox_inches='tight', dpi=300)
     plt.show()
+
     plt.imshow(label_img)
+    plt.savefig('../output_images/detected_' + filename, bbox_inches='tight', dpi=300)
     plt.show()
 
 def process_image_vehicle(img):
@@ -178,7 +182,11 @@ detector = LaneDetector()
 classifier = VehicleClassifier()
 # detect_vehicles_for_video()
 
-# detect_vehicles('../test_images/test1.jpg')
+# detect_vehicles('../test_images/test3.jpg')
+# detect_vehicles('../test_images/test4.jpg')
+# detect_vehicles('../test_images/test5.jpg')
+
+detect_vehicles('../test_images/test1.jpg')
 # detect_vehicles('../test_images/test2.jpg')
 # detect_vehicles('../test_images/test3.jpg')
 # detect_vehicles('../test_images/test4.jpg')
@@ -210,4 +218,43 @@ def load_random_images():
     imagedata_list = [(car_img, 'Car', None), (notcar_img, 'Not-Car', None)]
     show_images(imagedata_list, save_as='../output_images/train_images.jpg')
 
-load_random_images()
+    imagedata_list = []
+    car_img = classifier.convert_color(car_img)
+    notcar_img = classifier.convert_color(notcar_img)
+
+    _, car_ch1_hog = classifier.get_hog_features(car_img[:,:,0], vis=True, feature_vec=False)
+    imagedata_list.append((car_img[:,:,0], 'Car CH-1', 'gray'))
+    imagedata_list.append((car_ch1_hog, 'Car CH-1 Features', 'gray'))
+    _, notcar_ch1_hog = classifier.get_hog_features(notcar_img[:,:,0], vis=True, feature_vec=False)
+    imagedata_list.append((notcar_img[:,:,0], 'Not-Car CH-1', 'gray'))
+    imagedata_list.append((notcar_ch1_hog, 'Not-Car CH-1 Features', 'gray'))
+
+    _, car_ch2_hog = classifier.get_hog_features(car_img[:,:,1], vis=True, feature_vec=False)
+    imagedata_list.append((car_img[:,:,1], 'Car CH-2', 'gray'))
+    imagedata_list.append((car_ch2_hog, 'Car CH-2 Features', 'gray'))
+    _, notcar_ch2_hog = classifier.get_hog_features(notcar_img[:,:,1], vis=True, feature_vec=False)
+    imagedata_list.append((notcar_img[:,:,1], 'Not-Car CH-2', 'gray'))
+    imagedata_list.append((notcar_ch2_hog, 'Not-Car CH-2 Features', 'gray'))
+
+    _, car_ch3_hog = classifier.get_hog_features(car_img[:,:,2], vis=True, feature_vec=False)
+    imagedata_list.append((car_img[:,:,2], 'Car CH-3', 'gray'))
+    imagedata_list.append((car_ch3_hog, 'Car CH-3 Features', 'gray'))
+    _, notcar_ch3_hog = classifier.get_hog_features(notcar_img[:,:,2], vis=True, feature_vec=False)
+    imagedata_list.append((notcar_img[:,:,2], 'Not-Car CH-3', 'gray'))
+    imagedata_list.append((notcar_ch3_hog, 'Not-Car CH-3 Features', 'gray'))
+
+    # imagedata_list.append((car_img[:,:,0], 'Car CH-1', 'gray'))
+    # imagedata_list.append((car_ch1_feat, 'Car CH-1 Features', 'gray'))
+    # imagedata_list.append((notcar_img[:,:,0], 'Not-Car CH-1', 'gray'))
+    # imagedata_list.append((notcar_ch1_feat, 'Not-Car CH-1 Features', 'gray'))
+
+    # _, car_ch2_hog_img = classifier.get_hog_features(car_img[:,:,1], vis=True)
+    # _, car_ch3_hog_img = classifier.get_hog_features(car_img[:,:,2], vis=True)
+
+    # imagedata_list.append((car_ch1_feat, 'Car CH-1 Hog', 'gray'))
+    #
+    # notcar_ch2_hog_img = classifier.get_hog_features(notcar_img[:,:,1], vis=True)
+    # notcar_ch3_hog_img = classifier.get_hog_features(notcar_img[:,:,2], vis=True)
+    show_images(imagedata_list, save_as='../output_images/HOG_examples.jpg', fontsize=7)
+
+# load_random_images()

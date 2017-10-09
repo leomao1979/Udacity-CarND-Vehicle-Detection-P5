@@ -327,8 +327,8 @@ class VehicleClassifier:
         hot_windows, all_windows = self.find_cars(image)
         # for window in hot_windows:
         #     print('window: {}'.format(window))
-        window_img = self.draw_boxes(image, all_windows, thick=2)
-        # window_img = self.draw_boxes(image, hot_windows, thick=6)
+        # window_img = self.draw_boxes(image, all_windows, thick=2)
+        window_img = self.draw_boxes(image, hot_windows, thick=6)
         heatmap = self.build_heatmap(image, hot_windows)
         # Find final boxes from heatmap using label function
         labels = label(heatmap)
