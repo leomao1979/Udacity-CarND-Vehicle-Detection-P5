@@ -150,17 +150,17 @@ class LaneDetector:
         start_x += sub_window_size[1] + gap_between_windows
 
         # Warped image with lane plotted sub window
-        warp_zero = np.zeros_like(warped).astype(np.uint8)
-        line_img = np.dstack((warp_zero, warp_zero, warp_zero))
-        ploty = np.linspace(0, result.shape[0]-1, result.shape[0])
-        line_img[self.left_line.ally, self.left_line.allx] = [255, 0, 0]
-        line_img[self.right_line.ally, self.right_line.allx] = [0, 0, 255]
-        line_img[np.int_(ploty), np.int_(self.left_line.bestx)] = [255, 255, 0]
-        line_img[np.int_(ploty), np.int_(self.right_line.bestx)] = [255, 255, 0]
-        if self.counter == 50:
-            mpimg.imsave('output_images/warped_line_random.jpg', line_img, cmap='gray')
-        line_img = scipy.misc.imresize(line_img, sub_window_size)
-        result[top_gap:sub_window_size[0]+top_gap, start_x:sub_window_size[1]+start_x] = line_img
+        # warp_zero = np.zeros_like(warped).astype(np.uint8)
+        # line_img = np.dstack((warp_zero, warp_zero, warp_zero))
+        # ploty = np.linspace(0, result.shape[0]-1, result.shape[0])
+        # line_img[self.left_line.ally, self.left_line.allx] = [255, 0, 0]
+        # line_img[self.right_line.ally, self.right_line.allx] = [0, 0, 255]
+        # line_img[np.int_(ploty), np.int_(self.left_line.bestx)] = [255, 255, 0]
+        # line_img[np.int_(ploty), np.int_(self.right_line.bestx)] = [255, 255, 0]
+        # if self.counter == 50:
+        #     mpimg.imsave('../output_images/warped_line_random.jpg', line_img, cmap='gray')
+        # line_img = scipy.misc.imresize(line_img, sub_window_size)
+        # result[top_gap:sub_window_size[0]+top_gap, start_x:sub_window_size[1]+start_x] = line_img
 
         return result
 
@@ -207,9 +207,9 @@ class LaneDetector:
         self.lane_width = self.left_line.line_base_pos + self.right_line.line_base_pos
         if self.counter == 50:
             # For write up. Video clip: (38, 43)
-            mpimg.imsave('output_images/undistorted_random.jpg', undistorted, cmap='gray')
-            mpimg.imsave('output_images/binary_random.jpg', binary_image, cmap='gray')
-            mpimg.imsave('output_images/result_random.jpg', result)
+            mpimg.imsave('../output_images/undistorted_random.jpg', undistorted, cmap='gray')
+            mpimg.imsave('../output_images/binary_random.jpg', binary_image, cmap='gray')
+            mpimg.imsave('../output_images/result_random.jpg', result)
 
         return result
 

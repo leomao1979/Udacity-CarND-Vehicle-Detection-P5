@@ -6,3 +6,5 @@ models
 *.p
 checkpoint
 lenet.*
+__pycache__
+train_data

@@ -1,6 +1,9 @@
 import cv2
 import os
 import numpy as np
+import time
+import glob
+import random
 from matplotlib import pyplot as plt
 from matplotlib import image  as mpimg
 from moviepy.editor import VideoFileClip
@@ -31,8 +34,8 @@ def show_images(imagedata_list, save_as=None, fontsize=12):
     f.tight_layout()
     f.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.)
     # f.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0., hspace=-0.5)
-    if nrows == 1:
-        plt.setp(axes, xticks=np.arange(0, 1280, 250))
+    # if nrows == 1:
+    #     plt.setp(axes, xticks=np.arange(0, 1280, 250))
 
     axes = np.reshape(axes, -1)
     for imagedata, ax in zip(imagedata_list, axes):
@@ -158,6 +161,7 @@ def detect_vehicles(fullname):
     plt.show()
 
 def process_image_vehicle(img):
+    img = detector.detect_lane(img)
     _, result = classifier.detect_vehicles(img)
     return result
 
@@ -165,18 +169,20 @@ def detect_vehicles_for_video():
     # video_file = 'test_video.mp4'
     video_file = 'project_video.mp4'
     clip = VideoFileClip('../' + video_file)
+    # clip = VideoFileClip('../' + video_file).subclip(10,20)
     new_clip = clip.fl_image(process_image_vehicle)
     video_output = '../output_videos/detect_' + video_file
     new_clip.write_videofile(video_output, audio=False)
 
+detector = LaneDetector()
 classifier = VehicleClassifier()
-detect_vehicles_for_video()
+# detect_vehicles_for_video()
+
 # detect_vehicles('../test_images/test1.jpg')
 # detect_vehicles('../test_images/test2.jpg')
 # detect_vehicles('../test_images/test3.jpg')
 # detect_vehicles('../test_images/test4.jpg')
 # detect_vehicles('../test_images/test5.jpg')
-# detector = LaneDetector()
 # image_dir = 'test_images/'
 # output_dir = 'output_images/'
 # detect_lane_for_video()
@@ -187,3 +193,21 @@ detect_vehicles_for_video()
 # generate_binary_image('test_images/test1.jpg')
 # generate_binary_image('test_images/challenge1.jpg')
 # detect_lane('test_images/challenge1.jpg')
+
+def load_random_images():
+    images = glob.glob('../train_data/**/*.png', recursive=True)
+    cars = []
+    notcars = []
+    for image in images:
+        if 'non-vehicles' in image:
+            notcars.append(image)
+        else:
+            cars.append(image)
+    randint = random.randint(0, len(cars))
+    car_img = mpimg.imread(cars[randint])
+    randint = random.randint(0, len(notcars))
+    notcar_img = mpimg.imread(notcars[randint])
+    imagedata_list = [(car_img, 'Car', None), (notcar_img, 'Not-Car', None)]
+    show_images(imagedata_list, save_as='../output_images/train_images.jpg')
+
+load_random_images()

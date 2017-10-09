@@ -10,9 +10,7 @@ class PerspectiveTransformer:
         self._calculate_matrix()
 
     def _calculate_matrix(self):
-        filename = 'test_images/straight_lines1.jpg'
-        img = cv2.imread(filename)
-        img_size = (img.shape[1], img.shape[0])
+        img_size = (1280, 720)
         self.srcPoints = np.float32(
                         [[img_size[0] * 0.151, img_size[1]],
                         [img_size[0] * 0.451, img_size[1] * 0.64],

@@ -5,7 +5,7 @@ import glob
 import numpy as np
 
 class CameraCalibrator:
-    def __init__(self, camera_cal_dir = 'camera_cal/', points_per_row = 9, points_per_col = 6):
+    def __init__(self, camera_cal_dir = '../camera_cal/', points_per_row = 9, points_per_col = 6):
         self.camera_cal_dir = camera_cal_dir
         self.points_per_row = points_per_row
         self.points_per_col = points_per_col
