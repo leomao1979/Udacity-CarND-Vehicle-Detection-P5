@@ -66,7 +66,7 @@ I trained a linear SVM using spatially binned color, histogram of color and YCrC
 
 ### Sliding Window Search
 
-####1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
+#### 1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
 
 I tried different combinations of (ystart, ystop) and scale. Below is my final choice with the consideration of least false positives and optimized detection performance.
 
